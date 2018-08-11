@@ -1,0 +1,3 @@
+
+# 邮箱链接有效期
+VERIFY_EMAIL_TOKEN_EXPIRES = 60 * 10
