@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from areas.models import Area
 
@@ -10,7 +11,7 @@ from areas.models import Area
 from areas.serializers import AreaSerializer, SubAreaSerializer
 
 
-class AreasViewSet(ReadOnlyModelViewSet):
+class AreasViewSet(CacheResponseMixin, ReadOnlyModelViewSet):
     """
     行政区划信息
 
@@ -19,7 +20,7 @@ class AreasViewSet(ReadOnlyModelViewSet):
     3. 因为一个省份的所有信息和查询所有省份无法使用同一个序列化器, 所以需要重写不同方法获取序列化器类的方法
 
     """
-    # note--注意这里分页问题和最好的数据库查询缓存问题
+    # note--注意这里 分页 问题和最后的数据库查询 缓存 问题！
     pagination_class = None  # 区划信息不分页
 
     def get_queryset(self):
