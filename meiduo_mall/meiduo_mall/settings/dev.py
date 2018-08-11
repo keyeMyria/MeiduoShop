@@ -23,7 +23,7 @@ SECRET_KEY = '9etoyq!58ne0%v9!1*5v4nw7sbj8#8b5k=z*_lw-!do9x=g3=!'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['api.meiduo.site', '127.0.0.1', 'localhost', 'www.meiduo.site']
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
 ]
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # CORS
 CORS_ORIGIN_WHITELIST = (
@@ -55,6 +56,11 @@ CORS_ORIGIN_WHITELIST = (
     'api.meiduo.site:8000'
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
+
+ALLOWED_HOSTS = ['api.meiduo.site', '127.0.0.1', 'localhost', 'www.meiduo.site']
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -88,6 +94,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meiduo_mall.wsgi.application'
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# tips--数据库
 
 DATABASES = {
     'default': {
