@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'carts.apps.CartsConfig',
     'areas.apps.AreasConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 
     'rest_framework',
     'corsheaders',
@@ -50,6 +51,11 @@ INSTALLED_APPS = [
     'django_crontab',       # 定时任务
 
     'haystack',             # 搜索引擎
+
+    # xadmin后台管理
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 
 ]
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -330,3 +336,10 @@ HAYSTACK_CONNECTIONS = {
 # 当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# tips--支付宝
+
+# 支付宝
+ALIPAY_APPID = "2016091700533080"
+ALIPAY_URL = "https://openapi.alipaydev.com/gateway.do"
+ALIPAY_DEBUG = True
