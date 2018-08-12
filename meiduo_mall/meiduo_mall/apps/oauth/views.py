@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 
+from carts.utils import merge_cart_cookie_to_redis
 from oauth.models import OAuthQQUser
 from oauth.serializers import OAuthQQUserSerializer
 from oauth.utils import OAuthQQ
@@ -74,4 +75,16 @@ class QQAuthUserView(CreateAPIView):
                 'user_id': user.id,
                 'username': user.username
             })
+
+            # 合并购物车, 拦截response删除购物车cookie
+            response = merge_cart_cookie_to_redis(request, user, response)
+
             return response
+
+    # note--重写post拦截父类的执行方法返回的response, 进行购物车的合并
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+
+        # 合并购物车
+        response = merge_cart_cookie_to_redis(request, self.user, response)
+        return response

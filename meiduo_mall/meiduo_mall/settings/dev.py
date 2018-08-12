@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    'ckeditor',  # 富文本编辑器
-    'ckeditor_uploader',  # 富文本编辑器上传图片模块
-    'django_crontab',  # 定时任务
+    'ckeditor',             # 富文本编辑器
+    'ckeditor_uploader',    # 富文本编辑器上传图片模块
+    'django_crontab',       # 定时任务
+
+    'haystack',             # 搜索引擎
 
 ]
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -143,6 +145,13 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
+    "cart": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/4",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session"
@@ -228,6 +237,8 @@ REST_FRAMEWORK = {
     ),
     # 异常处理
     'EXCEPTION_HANDLER': 'meiduo_mall.utils.exceptions.exception_handler',
+    # note--分页,　注意这里是全局配置, 在不需要开启分页或者不能开启分页的地方要关闭分页!否则报错!
+    'DEFAULT_PAGINATION_CLASS': 'meiduo_mall.utils.pagination.StandardResultsSetPagination',
 }
 
 # JWT
@@ -306,3 +317,16 @@ CRONJOBS = [
 # 解决crontab中文问题
 CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://192.168.181.130:9200/',  # 此处为elasticsearch运行的服务器ip地址，端口号固定为9200
+        'INDEX_NAME': 'meiduo',  # 指定elasticsearch建立的索引库的名称
+    },
+}
+
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+

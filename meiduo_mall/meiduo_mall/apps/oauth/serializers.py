@@ -86,4 +86,12 @@ class OAuthQQUserSerializer(serializers.ModelSerializer):
 
         user.token = token
 
+        # tips--完成绑定
+        # note--这里也需要合并购物车, 但是序列化器中无法获取response对象, 只能在视图中完成
+        # note--通过在视图中重写post方法, 来合并序列化器
+
+        # note--向视图对象中补充user对象属性，以便在视图中使用user
+        # note--注意灵活运用这种动态修改的方法
+        self.context['view'].user = user
+
         return user

@@ -9,12 +9,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
+from rest_framework_jwt.views import ObtainJSONWebToken
 
+from carts.utils import merge_cart_cookie_to_redis
 from goods.models import SKU
+from goods.serializers import SKUSerializer
 from users import constants
 from users import serializers
 from users.models import User
-from users.serializers import CreateUserSerializer, AddUserBrowsingHistorySerializer, SKUSerializer
+from users.serializers import CreateUserSerializer, AddUserBrowsingHistorySerializer
 
 
 # tips--注册视图
@@ -196,3 +199,23 @@ class UserBrowsingHistoryView(CreateAPIView):
         s = SKUSerializer(skus, many=True)
         return Response(s.data)
 
+
+# tips--重写登录
+class UserAuthorizeView(ObtainJSONWebToken):
+    """
+    用户认证
+    """
+    def post(self, request, *args, **kwargs):
+        # 调用父类的方法，获取drf jwt扩展默认的认证用户处理结果
+        # note--拦截response对象
+        response = super().post(request, *args, **kwargs)
+
+        # 仿照drf jwt扩展对于用户登录的认证方式，判断用户是否认证登录成功, 如果用户登录认证成功，则合并购物车
+        serializer = self.get_serializer(data=request.data)
+
+        # note--分析源码判断是否登录成功, 只有登录成功才合并并返回拦截的response
+        if serializer.is_valid():
+            user = serializer.validated_data.get('user')
+            response = merge_cart_cookie_to_redis(request, user, response)
+
+        return response
