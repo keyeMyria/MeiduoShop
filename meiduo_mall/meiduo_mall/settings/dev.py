@@ -21,7 +21,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 SECRET_KEY = '9etoyq!58ne0%v9!1*5v4nw7sbj8#8b5k=z*_lw-!do9x=g3=!'
 
-DEBUG = True
+DEBUG = False
+
+
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -201,7 +203,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 STATIC_URL = '/static/'
+
+# note--收集静态文件的保存目录
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
 
 
 LOGGING = {
