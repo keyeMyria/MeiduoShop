@@ -117,8 +117,20 @@ DATABASES = {
         'USER': 'meiduo002',    # 数据库用户名
         'PASSWORD': 'meiduo',   # 数据库用户密码
         'NAME': 'meiduo_shop'   # 数据库名字
+    },
+    'salve': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '127.0.0.1',  # 数据库主机
+        'PORT': 8306,  # 数据库端口
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': 'mysql',  # 数据库用户密码
+        'NAME': 'meiduo_shop'  # 数据库名字
     }
 }
+
+# note--配置数据库读写分离, 减轻服务器压力
+DATABASE_ROUTERS = ['meiduo_mall.utils.db_router.MasterSlaveDBRouter']
+
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # note--配置缓存的后端为redis, 当然也可以使用其他的后端
 
