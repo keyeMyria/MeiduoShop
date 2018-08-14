@@ -88,3 +88,4 @@ class QQAuthUserView(CreateAPIView):
         # 合并购物车
         response = merge_cart_cookie_to_redis(request, self.user, response)
         return response
+

@@ -24,8 +24,7 @@ SECRET_KEY = '9etoyq!58ne0%v9!1*5v4nw7sbj8#8b5k=z*_lw-!do9x=g3=!'
 DEBUG = False
 
 # note--收集静态文件的保存目录
-STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
-print(STATIC_ROOT)
+# STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -66,17 +65,17 @@ INSTALLED_APPS = [
 
 # CORS
 CORS_ORIGIN_WHITELIST = (
-    'www.meiduo.site',
-    'api.meiduo.site',
     '127.0.0.1:8080',
     'localhost:8080',
     'www.meiduo.site:8080',
     'api.meiduo.site:8000',
+    'www.meiduo.site',
+    'api.meiduo.site',
 )
 
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
-ALLOWED_HOSTS = ['api.meiduo.site', '127.0.0.1', 'localhost', 'www.meiduo.site']
+ALLOWED_HOSTS = ['api.meiduo.site', 'www.meiduo.site', '127.0.0.1', 'localhost' ]
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -210,6 +209,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# tips--日志记录
 
 LOGGING = {
     'version': 1,
@@ -281,7 +282,7 @@ AUTHENTICATION_BACKENDS = [
 # QQ登录参数
 QQ_CLIENT_ID = '101474184'
 QQ_CLIENT_SECRET = 'c6ce949e04e12ecc909ae6a8b09b637c'
-QQ_REDIRECT_URI = 'http://www.meiduo.site:8080/oauth_callback.html'
+QQ_REDIRECT_URI = 'http://www.meiduo.site/oauth_callback.html'
 QQ_STATE = '/'
 
 

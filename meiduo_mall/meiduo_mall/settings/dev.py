@@ -67,7 +67,8 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8080',
     'localhost:8080',
     'www.meiduo.site:8080',
-    'api.meiduo.site:8000'
+    'api.meiduo.site:8000',
+    'www.meiduo.site'
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
@@ -119,14 +120,6 @@ DATABASES = {
         'USER': 'meiduo002',    # 数据库用户名
         'PASSWORD': 'meiduo',   # 数据库用户密码
         'NAME': 'meiduo_shop'   # 数据库名字
-    },
-    'salve': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',  # 数据库主机
-        'PORT': 8306,  # 数据库端口
-        'USER': 'root',  # 数据库用户名
-        'PASSWORD': 'mysql',  # 数据库用户密码
-        'NAME': 'meiduo_shop'  # 数据库名字
     }
 }
 
@@ -207,7 +200,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # note--收集静态文件的保存目录
-STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
+# STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
+STATIC_ROOT = os.path.join(BASE_DIR,"static/")
 
 
 LOGGING = {
